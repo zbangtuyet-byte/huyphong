@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container" style="margin-top: 10px;">
+        <nav>
+            <div class="logo">
+                <img src="image/logo.png" alt="Logo">
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                    <li><a href="introduction.html" >GIỚI THIỆU ▼</a>
+                        <ul id="gioithieu"></ul>
+                    <li><a href="cart.html">GIỎ HÀNG</a></li>
+                    <li><a href="">THÚ CƯNG ▼</a>
+                        <ul id="danhmuc"></ul>
+                    </li>
+                    <li><a href="#" id="dn">ĐĂNG NHẬP</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="row">
+
+    <!-- Hình ảnh sản phẩm -->
+    <div class="left">
+    <!-- Ảnh sản phẩm lớn -->
+    <img src="image/cb.jpg" alt="Meo" id="detail-big">
+
+    <!-- Ảnh các sản phẩm cùng loại -->
+    <div class="row" style="justify-content: center;" id="anh-cung-loai">
+    </div>
+</div>
+
+    <!-- Thông tin và mua sản phẩm -->
+    <div class="right">
+
+        <h1 id="ten">Tên sản phẩm</h1>
+
+        <h2 class="gia-sanpham" id="gia">Giá sản phẩm</h2>
+
+        <p id="mota">Mô tả sản phẩm</p>
+
+        <div class="soluong">
+            <label>Số lượng:</label>
+
+            <button type="button" onclick="giamSoLuong()">-</button>
+
+            <input type="number" id="soluong" value="1" min="1">
+
+            <button type="button" onclick="tangSoLuong()">+</button>
+        </div>
+
+        <button class="nut-mua" onclick="themGioHang()">
+            THÊM VÀO GIỎ HÀNG
+        </button>
+
+        <p id="thongbao"></p>
+
+    </div>
+
+</div>
+
+<!-- Sản phẩm tương tự -->
+<div class="container">
+    <div class="row">
+        <h1>Sản Phẩm Tương Tự</h1>
+    </div>
+
+    <div class="row" id="sptt"></div>
+</div>
+
+<script src="js/ds.js"></script>
+
+<script>
+    // Tạo danh mục thú cưng
+    for (let i = 0; i < dm.length; i++) {
+        document.getElementById("danhmuc").innerHTML +=
+            `<li><a href="">${dm[i]}</a></li>`;
+    }
+
+    // Lấy id sản phẩm từ đường dẫn
+    let link = window.location.href;
+    let url = new URL(link);
+    let id = url.searchParams.get("id");
+
+    // Tìm sản phẩm theo id
+    let item = ds.find(pt => pt.id === Number(id));
+
+    if (item) {
+        document.getElementById("detail-big").src = `image/${item.hinh}`;
+        document.getElementById("ten").innerText = item.ten;
+        document.getElementById("gia").innerText = item.gia;
+        document.getElementById("mota").innerText = item.mota;
+
+         // Hiển thị ảnh các sản phẩm cùng loại
+    let anhCungLoai = ds.filter(pt => pt.loai === item.loai);
+
+    for (let i = 0; i < anhCungLoai.length && i < 3; i++) {
+        document.getElementById("anh-cung-loai").innerHTML += `
+            <div class="frame">
+                <img src="image/${anhCungLoai[i].hinh}"
+                     alt="${anhCungLoai[i].ten}"
+                     onclick="document.getElementById('detail-big').src=this.src">
+            </div>
+        `;
+    }
+
+        // Hiển thị sản phẩm tương tự
+        let loai = item.loai;
+        let sptt = ds.filter(pt => pt.loai === loai && pt.id !== item.id);
+
+        for (let i = 0; i < sptt.length; i++) {
+            document.getElementById("sptt").innerHTML += `
+                <div class="col3 m3">
+                    <img src="image/${sptt[i].hinh}" alt="${sptt[i].ten}">
+                    <h3>${sptt[i].ten}</h3>
+                    <h2>Giá: ${sptt[i].gia}</h2>
+                    <p>${sptt[i].mota}</p>
+
+                    <button onclick="window.location.href='detail.html?id=${sptt[i].id}'">
+                        Chi tiết
+                    </button>
+                </div>
+            `;
+        }
+    } else {
+        document.getElementById("ten").innerText = "Không tìm thấy sản phẩm";
+        document.getElementById("gia").innerText = "";
+        document.getElementById("mota").innerText = "";
+    }
+
+    // Tăng số lượng
+    function tangSoLuong() {
+        let sl = document.getElementById("soluong");
+        sl.value = Number(sl.value) + 1;
+    }
+
+    // Giảm số lượng
+    function giamSoLuong() {
+        let sl = document.getElementById("soluong");
+
+        if (Number(sl.value) > 1) {
+            sl.value = Number(sl.value) - 1;
+        }
+    }
+
+    // Thêm sản phẩm vào giỏ hàng
+    function themGioHang() {
+        let soluong = Number(document.getElementById("soluong").value);
+
+        if (!item) {
+            alert("Không tìm thấy sản phẩm!");
+            return;
+        }
+
+        if (soluong < 1 || !Number.isInteger(soluong)) {
+            alert("Vui lòng nhập số lượng hợp lệ!");
+            return;
+        }
+
+        // Lấy giỏ hàng đã lưu
+        let giohang = JSON.parse(localStorage.getItem("giohang")) || [];
+
+        // Kiểm tra sản phẩm đã có trong giỏ chưa
+        let sp = giohang.find(pt => pt.id === item.id);
+
+        if (sp) {
+            sp.soluong += soluong;
+        } else {
+            giohang.push({
+                id: item.id,
+                ten: item.ten,
+                gia: item.gia,
+                hinh: item.hinh,
+                soluong: soluong
+            });
+        }
+
+        // Lưu giỏ hàng
+        localStorage.setItem("giohang", JSON.stringify(giohang));
+
+        document.getElementById("thongbao").innerText =
+            "Đã thêm sản phẩm vào giỏ hàng!";
+
+        alert("Đã thêm sản phẩm vào giỏ hàng!");
+    }
+</script>
+
+</body>
+
+</html>

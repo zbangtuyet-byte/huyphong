@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+    <script src="js/ds.js"></script>
+
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="image/Logo.png" alt="Logo">
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                    <li><a href="introduction.html" >GIỚI THIỆU ▼</a>
+                        <ul id="gioithieu"></ul>
+                    </li>
+                    <li><a href="cart.html">GIỎ HÀNG</a></li>
+                    <li><a href="">THÚ CƯNG</a>
+                        <ul id="danhmuc"></ul>
+                    </li>
+                    <li>
+                        <a href="#" id="menuLogin">ĐĂNG NHẬP</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <div id="login" style="display: none;">
+
+        <!-- Nút đóng -->
+        <div id="btnClose"
+            style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-weight: bold; font-size: 18px;">
+            x
+        </div>
+
+        <!-- FORM ĐĂNG NHẬP -->
+        <div id="formLogin">
+
+            <h1 style="text-align: center; margin-bottom: 15px;">
+                Đăng Nhập
+            </h1>
+
+            <form>
+                <div class="gr">
+
+                    <div>
+                        <label>Tài Khoản</label>
+                        <input type="text" id="username"
+                            placeholder="Nhập tài khoản">
+                    </div>
+
+                    <div>
+                        <label>Mật Khẩu</label>
+                        <input type="password" id="password"
+                            placeholder="Nhập mật khẩu">
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button type="button" id="btnLogin">
+                            Đăng Nhập
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 15px;">
+                        Chưa có tài khoản?
+                        <a href="#" id="showRegister">Đăng ký</a>
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+        <!-- FORM ĐĂNG KÝ -->
+        <div id="formRegister" style="display: none;">
+
+            <h1 style="text-align: center; margin-bottom: 15px;">
+                Đăng Ký
+            </h1>
+
+            <form>
+                <div class="gr">
+
+                    <div>
+                        <label>Tài Khoản</label>
+                        <input type="text" id="regUsername"
+                            placeholder="Nhập tài khoản">
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="regEmail"
+                            placeholder="Nhập email">
+                    </div>
+
+                    <div>
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" id="regPhone"
+                            placeholder="Nhập số điện thoại">
+                    </div>
+
+                    <div>
+                        <label>Mật Khẩu</label>
+                        <input type="password" id="regPassword"
+                            placeholder="Nhập mật khẩu">
+                    </div>
+
+                    <div>
+                        <label>Xác Nhận Mật Khẩu</label>
+                        <input type="password" id="regConfirmPassword"
+                            placeholder="Nhập lại mật khẩu">
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button type="button" id="btnRegister">
+                            Đăng Ký
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 15px;">
+                        Đã có tài khoản?
+                        <a href="#" id="showLogin">Đăng nhập</a>
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+    
+            // MỞ FORM ĐĂNG NHẬP
+            $('#menuLogin').click(function (e) {
+                e.preventDefault();
+                $('#login').show();
+                $('#formLogin').show();
+                $('#formRegister').hide();
+            });
+    
+            // ĐÓNG FORM
+            $('#btnClose').click(function () {
+                $('#login').hide();
+            });
+    
+            // CHUYỂN SANG ĐĂNG KÝ
+            $('#showRegister').click(function (e) {
+                e.preventDefault();
+                $('#formLogin').hide();
+                $('#formRegister').show();
+            });
+    
+            // CHUYỂN VỀ ĐĂNG NHẬP
+            $('#showLogin').click(function (e) {
+                e.preventDefault();
+                $('#formRegister').hide();
+                $('#formLogin').show();
+            });
+    
+            // XỬ LÝ ĐĂNG NHẬP
+            $('#btnLogin').click(function () {
+                let u = $('#username').val().trim();
+                let p = $('#password').val();
+    
+                if (u === "" || p === "") {
+                    alert("Vui lòng nhập tài khoản và mật khẩu!");
+                    return;
+                }
+    
+                if (u === "phong111" && p === "12345") {
+                    alert("Đăng nhập thành công!");
+                    $('#login').hide();
+                } else {
+                    alert("Sai tài khoản hoặc mật khẩu!");
+                }
+            });
+    
+            // XỬ LÝ ĐĂNG KÝ
+            $('#btnRegister').click(function () {
+                let u = $('#regUsername').val().trim();
+                let email = $('#regEmail').val().trim();
+                let phone = $('#regPhone').val().trim();
+                let p = $('#regPassword').val().trim();
+                let confirmP = $('#regConfirmPassword').val().trim();
+    
+                // Chỉ kiểm tra thông tin trống
+                if (u === "" || email === "" || phone === "" ||
+                    p === "" || confirmP === "") {
+                    alert("Vui lòng nhập đầy đủ thông tin!");
+                    return;
+                }
+    
+                alert("Đăng ký thành công!");
+    
+                $('#username').val(u);
+                $('#password').val('');
+    
+                $('#regUsername, #regEmail, #regPhone, #regPassword, #regConfirmPassword').val('');
+    
+                $('#formRegister').hide();
+                $('#formLogin').show();
+            });
+    
+        });
+    </script>
+
+    
+<div class="container">
+    <div class="row">
+        <div class="banner">
+            <img src="image/tranggioithieu_tintuc.jpg" alt="Giới thiệu Shop Mèo Béo" id="banner">
+
+            <div class="content">
+                GIỚI THIỆU VỀ SHOP MÈO BÉO
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- PHẦN GIỚI THIỆU SHOP -->
+<section class="about-section">
+    <div class="about-container">
+
+        <div class="about-intro">
+            <div class="about-text">
+                <span class="about-label">CHÀO MỪNG BẠN ĐẾN VỚI</span>
+                <h1>SHOP MÈO BÉO</h1>
+
+                <h3>Những người bạn nhỏ, tình yêu to lớn</h3>
+
+                <p>
+                    Thân gửi quý khách hàng!
+                </p>
+
+                <p>
+                    Xuất phát từ tình yêu và niềm đam mê dành cho
+                    thú cưng, Shop Mèo Béo mong muốn mang đến cho
+                    khách hàng những sản phẩm chất lượng và dịch vụ
+                    chăm sóc tận tâm nhất.
+                </p>
+
+                <p>
+                    Chúng tôi hiểu rằng thú cưng không chỉ là vật nuôi
+                    mà còn là những người bạn thân thiết, là thành viên
+                    đáng yêu trong mỗi gia đình.
+                </p>
+
+                <p>
+                    Vì vậy, Mèo Béo luôn cố gắng lựa chọn những sản phẩm
+                    phù hợp, an toàn và mang đến trải nghiệm mua sắm
+                    thân thiện cho cả thú cưng lẫn chủ nuôi.
+                </p>
+
+                <p>
+                    Cảm ơn bạn đã tin tưởng và đồng hành cùng Shop Mèo Béo!
+                </p>
+            </div>
+
+            <div class="about-image">
+                <img src="image/Logo.png" alt="Shop Mèo Béo">
+                <div class="about-image-caption">
+                    <h3>Yêu thương từ những điều nhỏ nhất</h3>
+                    <p>Chăm sóc tận tâm - Đồng hành dài lâu</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- KIM CHỈ NAM -->
+<section class="about-guide">
+    <div class="about-container">
+
+        <div class="section-heading">
+            <span>ĐIỀU MÈO BÉO LUÔN HƯỚNG ĐẾN</span>
+            <h1>Kim chỉ nam của chúng tôi</h1>
+            <p>
+                Mọi hoạt động đều bắt nguồn từ tình yêu,
+                sự tận tâm và trách nhiệm với thú cưng.
+            </p>
+        </div>
+
+        <div class="guide-list">
+
+            <div class="guide-card">
+                <div class="guide-icon">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <h3>Tầm nhìn</h3>
+                <p>
+                    Trở thành cửa hàng thú cưng được khách hàng
+                    yêu mến và tin tưởng, là địa chỉ đồng hành
+                    cùng các gia đình trong hành trình chăm sóc
+                    những người bạn nhỏ.
+                </p>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-icon">
+                    <i class="fa-solid fa-heart"></i>
+                </div>
+                <h3>Sứ mệnh</h3>
+                <p>
+                    Mang đến những sản phẩm hữu ích, chất lượng
+                    và dịch vụ tận tâm, góp phần giúp thú cưng
+                    luôn khỏe mạnh, vui vẻ và được yêu thương.
+                </p>
+            </div>
+
+            <div class="guide-card">
+                <div class="guide-icon">
+                    <i class="fa-solid fa-paw"></i>
+                </div>
+                <h3>Giá trị cốt lõi</h3>
+                <p>
+                    Lấy sự tận tâm, uy tín, chất lượng và trách nhiệm
+                    làm nền tảng. Luôn lắng nghe khách hàng và đặt
+                    sự an toàn của thú cưng lên hàng đầu.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- VÌ SAO CHỌN MÈO BÉO -->
+<section class="about-reasons">
+    <div class="about-container">
+
+        <div class="section-heading">
+            <span>ĐỒNG HÀNH CÙNG BOSS</span>
+            <h1>Vì sao nên chọn Shop Mèo Béo?</h1>
+        </div>
+
+        <div class="reason-list">
+
+            <div class="reason-item">
+                <i class="fa-solid fa-medal"></i>
+                <div>
+                    <h3>Sản phẩm được chọn lọc</h3>
+                    <p>
+                        Hướng đến những sản phẩm phù hợp với nhu cầu
+                        chăm sóc thú cưng.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reason-item">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+                <div>
+                    <h3>Tư vấn tận tâm</h3>
+                    <p>
+                        Luôn sẵn sàng hỗ trợ khách hàng lựa chọn
+                        sản phẩm phù hợp cho các bé.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reason-item">
+                <i class="fa-solid fa-shield-heart"></i>
+                <div>
+                    <h3>Đặt thú cưng lên hàng đầu</h3>
+                    <p>
+                        Quan tâm đến sự an toàn, thoải mái và
+                        nhu cầu của từng thú cưng.
+                    </p>
+                </div>
+            </div>
+
+            <div class="reason-item">
+                <i class="fa-solid fa-face-smile"></i>
+                <div>
+                    <h3>Thân thiện với khách hàng</h3>
+                    <p>
+                        Xây dựng trải nghiệm mua sắm gần gũi,
+                        thuận tiện và đáng tin cậy.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- LỜI CẢM ƠN -->
+<section class="about-thanks">
+    <div class="about-thanks-content">
+        <i class="fa-solid fa-paw"></i>
+        <h1>Cảm ơn bạn đã chọn Mèo Béo!</h1>
+        <p>
+            Mỗi bé thú cưng đều xứng đáng nhận được tình yêu
+            thương và sự chăm sóc tốt nhất.
+        </p>
+        <a href="index.html" class="about-button">
+            KHÁM PHÁ CỬA HÀNG
+        </a>
+    </div>
+</section>
+
+
+
+<script>
+    for (let i = 0; i < dm.length; i++) {
+        document.getElementById("danhmuc").innerHTML +=
+            `<li><a href="">${danhmuc[i]}</a></li>`
+
+    }
+</script>
+
+<script>
+    for (let i = 0; i < gioithieu.length; i++) {
+        document.getElementById("gioithieu").innerHTML +=
+            `<li><a href="${linkGioiThieu[i]}">${gioithieu[i]}</a></li>`
+
+    }
+</script>
+</body>
+
+<body>
+    <footer class="footer">
+        <div class="footer-container">
+    
+            <div class="footer-item">
+                <h3>THÚ CƯNG YÊU THƯƠNG</h3>
+                <p>Địa chỉ tin cậy dành cho những người yêu thú cưng.</p>
+                <p>Chúng tôi luôn đồng hành cùng bạn và thú cưng.</p>
+            </div>
+    
+            <div class="footer-item">
+                <h3>LIÊN KẾT NHANH</h3>
+                <a href="index.html">Trang chủ</a>
+                <a href="cart.html">Giỏ hàng</a>
+                <a href="#">Thú cưng</a>
+                <a href="#">Liên hệ</a>
+            </div>
+    
+            <div class="footer-item">
+                <h3>LIÊN HỆ</h3>
+                <p>Địa chỉ: TP. Hồ Chí Minh</p>
+                <p>Điện thoại: 0123 456 789</p>
+                <p>Email: thucung@example.com</p>
+            </div>
+    
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2026 Thú Cưng Yêu Thương. All rights reserved.</p>
+        </div>
+    </footer>
+</body>

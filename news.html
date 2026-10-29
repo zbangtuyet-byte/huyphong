@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="image/Logo.png" alt="Logo">
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ</a></li>
+                    <li><a href="introduction.html" >GIỚI THIỆU ▼</a>
+                        <ul id="gioithieu"></ul>
+                    </li>
+                    <li><a href="cart.html">GIỎ HÀNG</a></li>
+                    <li><a href="">THÚ CƯNG ▼</a>
+                        <ul id="danhmuc"></ul>
+                    </li>
+                    <li>
+                        <a href="#" id="menuLogin">ĐĂNG NHẬP</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <div id="login" style="display: none;">
+
+        <!-- Nút đóng -->
+        <div id="btnClose"
+            style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-weight: bold; font-size: 18px;">
+            x
+        </div>
+
+        <!-- FORM ĐĂNG NHẬP -->
+        <div id="formLogin">
+
+            <h1 style="text-align: center; margin-bottom: 15px;">
+                Đăng Nhập
+            </h1>
+
+            <form>
+                <div class="gr">
+
+                    <div>
+                        <label>Tài Khoản</label>
+                        <input type="text" id="username"
+                            placeholder="Nhập tài khoản">
+                    </div>
+
+                    <div>
+                        <label>Mật Khẩu</label>
+                        <input type="password" id="password"
+                            placeholder="Nhập mật khẩu">
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button type="button" id="btnLogin">
+                            Đăng Nhập
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 15px;">
+                        Chưa có tài khoản?
+                        <a href="#" id="showRegister">Đăng ký</a>
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+        <!-- FORM ĐĂNG KÝ -->
+        <div id="formRegister" style="display: none;">
+
+            <h1 style="text-align: center; margin-bottom: 15px;">
+                Đăng Ký
+            </h1>
+
+            <form>
+                <div class="gr">
+
+                    <div>
+                        <label>Tài Khoản</label>
+                        <input type="text" id="regUsername"
+                            placeholder="Nhập tài khoản">
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="regEmail"
+                            placeholder="Nhập email">
+                    </div>
+
+                    <div>
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" id="regPhone"
+                            placeholder="Nhập số điện thoại">
+                    </div>
+
+                    <div>
+                        <label>Mật Khẩu</label>
+                        <input type="password" id="regPassword"
+                            placeholder="Nhập mật khẩu">
+                    </div>
+
+                    <div>
+                        <label>Xác Nhận Mật Khẩu</label>
+                        <input type="password" id="regConfirmPassword"
+                            placeholder="Nhập lại mật khẩu">
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button type="button" id="btnRegister">
+                            Đăng Ký
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 15px;">
+                        Đã có tài khoản?
+                        <a href="#" id="showLogin">Đăng nhập</a>
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+    
+            // MỞ FORM ĐĂNG NHẬP
+            $('#menuLogin').click(function (e) {
+                e.preventDefault();
+                $('#login').show();
+                $('#formLogin').show();
+                $('#formRegister').hide();
+            });
+    
+            // ĐÓNG FORM
+            $('#btnClose').click(function () {
+                $('#login').hide();
+            });
+    
+            // CHUYỂN SANG ĐĂNG KÝ
+            $('#showRegister').click(function (e) {
+                e.preventDefault();
+                $('#formLogin').hide();
+                $('#formRegister').show();
+            });
+    
+            // CHUYỂN VỀ ĐĂNG NHẬP
+            $('#showLogin').click(function (e) {
+                e.preventDefault();
+                $('#formRegister').hide();
+                $('#formLogin').show();
+            });
+    
+            // XỬ LÝ ĐĂNG NHẬP
+            $('#btnLogin').click(function () {
+                let u = $('#username').val().trim();
+                let p = $('#password').val();
+    
+                if (u === "" || p === "") {
+                    alert("Vui lòng nhập tài khoản và mật khẩu!");
+                    return;
+                }
+    
+                if (u === "phong111" && p === "12345") {
+                    alert("Đăng nhập thành công!");
+                    $('#login').hide();
+                } else {
+                    alert("Sai tài khoản hoặc mật khẩu!");
+                }
+            });
+    
+            // XỬ LÝ ĐĂNG KÝ
+            $('#btnRegister').click(function () {
+                let u = $('#regUsername').val().trim();
+                let email = $('#regEmail').val().trim();
+                let phone = $('#regPhone').val().trim();
+                let p = $('#regPassword').val().trim();
+                let confirmP = $('#regConfirmPassword').val().trim();
+    
+                // Chỉ kiểm tra thông tin trống
+                if (u === "" || email === "" || phone === "" ||
+                    p === "" || confirmP === "") {
+                    alert("Vui lòng nhập đầy đủ thông tin!");
+                    return;
+                }
+    
+                alert("Đăng ký thành công!");
+    
+                $('#username').val(u);
+                $('#password').val('');
+    
+                $('#regUsername, #regEmail, #regPhone, #regPassword, #regConfirmPassword').val('');
+    
+                $('#formRegister').hide();
+                $('#formLogin').show();
+            });
+    
+        });
+    </script>
+
+    
+<div class="container">
+    <div class="row">
+        <div class="banner">
+            <img src="image/tranggioithieu_tintuc.jpg" alt="Giới thiệu Shop Mèo Béo" id="banner">
+
+            <div class="content">
+                TIN TỨC THÚ CƯNG
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Giữ menu hiện tại của bạn ở đây -->
+
+<div class="banner-tintuc">
+    <h1>TIN TỨC THÚ CƯNG</h1>
+    <p>
+        Cập nhật kiến thức chăm sóc thú cưng cùng Mèo Béo.
+    </p>
+</div>
+
+<div class="container-tintuc">
+    <h2 class="tieu-de">TIN TỨC MỚI NHẤT</h2>
+
+    <!-- JavaScript tự tạo bài viết bên trong -->
+    <div class="danh-sach-tin" id="danhsachtintuc"></div>
+</div>
+
+
+
+
+<script src="js/news.js"></script>
+<script src="js/ds.js"></script>
+
+
+<script>
+    for (let i = 0; i < dm.length; i++) {
+        document.getElementById("danhmuc").innerHTML +=
+            `<li><a href="">${danhmuc[i]}</a></li>`
+
+    }
+</script>
+</body>
+
+<body>
+    <footer class="footer">
+        <div class="footer-container">
+    
+            <div class="footer-item">
+                <h3>THÚ CƯNG YÊU THƯƠNG</h3>
+                <p>Địa chỉ tin cậy dành cho những người yêu thú cưng.</p>
+                <p>Chúng tôi luôn đồng hành cùng bạn và thú cưng.</p>
+            </div>
+    
+            <div class="footer-item">
+                <h3>LIÊN KẾT NHANH</h3>
+                <a href="index.html">Trang chủ</a>
+                <a href="cart.html">Giỏ hàng</a>
+                <a href="#">Thú cưng</a>
+                <a href="#">Liên hệ</a>
+            </div>
+    
+            <div class="footer-item">
+                <h3>LIÊN HỆ</h3>
+                <p>Địa chỉ: TP. Hồ Chí Minh</p>
+                <p>Điện thoại: 0123 456 789</p>
+                <p>Email: thucung@example.com</p>
+            </div>
+    
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2026 Thú Cưng Yêu Thương. All rights reserved.</p>
+        </div>
+    </footer>
+</body>

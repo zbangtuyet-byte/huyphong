@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <img src="image/Logo.png" alt="Logo">
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">TRANG CHỦ </a></li>
+                    <li><a href="introduction.html" >GIỚI THIỆU ▼</a>
+                        <ul id="gioithieu"></ul>
+                    </li>
+                    <li><a href="cart.html">GIỎ HÀNG</a></li>
+                    <li><a href="">THÚ CƯNG ▼</a>
+                        <ul id="danhmuc"></ul>
+                    </li>
+                    <li>
+                        <a href="#" id="menuLogin">ĐĂNG NHẬP</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+
+
+
+    <div id="login" style="display: none;">
+
+        <!-- Nút đóng -->
+        <div id="btnClose"
+            style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-weight: bold; font-size: 18px;">
+            x
+        </div>
+
+        <!-- FORM ĐĂNG NHẬP -->
+        <div id="formLogin">
+
+            <h1 style="text-align: center; margin-bottom: 15px;">
+                Đăng Nhập
+            </h1>
+
+            <form>
+                <div class="gr">
+
+                    <div>
+                        <label>Tài Khoản</label>
+                        <input type="text" id="username"
+                            placeholder="Nhập tài khoản">
+                    </div>
+
+                    <div>
+                        <label>Mật Khẩu</label>
+                        <input type="password" id="password"
+                            placeholder="Nhập mật khẩu">
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button type="button" id="btnLogin">
+                            Đăng Nhập
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 15px;">
+                        Chưa có tài khoản?
+                        <a href="#" id="showRegister">Đăng ký</a>
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+        <!-- FORM ĐĂNG KÝ -->
+        <div id="formRegister" style="display: none;">
+
+            <h1 style="text-align: center; margin-bottom: 15px;">
+                Đăng Ký
+            </h1>
+
+            <form>
+                <div class="gr">
+
+                    <div>
+                        <label>Tài Khoản</label>
+                        <input type="text" id="regUsername"
+                            placeholder="Nhập tài khoản">
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="regEmail"
+                            placeholder="Nhập email">
+                    </div>
+
+                    <div>
+                        <label>Số Điện Thoại</label>
+                        <input type="tel" id="regPhone"
+                            placeholder="Nhập số điện thoại">
+                    </div>
+
+                    <div>
+                        <label>Mật Khẩu</label>
+                        <input type="password" id="regPassword"
+                            placeholder="Nhập mật khẩu">
+                    </div>
+
+                    <div>
+                        <label>Xác Nhận Mật Khẩu</label>
+                        <input type="password" id="regConfirmPassword"
+                            placeholder="Nhập lại mật khẩu">
+                    </div>
+
+                    <div style="text-align: center; margin-top: 15px;">
+                        <button type="button" id="btnRegister">
+                            Đăng Ký
+                        </button>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 15px;">
+                        Đã có tài khoản?
+                        <a href="#" id="showLogin">Đăng nhập</a>
+                    </p>
+
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+    
+            // MỞ FORM ĐĂNG NHẬP
+            $('#menuLogin').click(function (e) {
+                e.preventDefault();
+                $('#login').show();
+                $('#formLogin').show();
+                $('#formRegister').hide();
+            });
+    
+            // ĐÓNG FORM
+            $('#btnClose').click(function () {
+                $('#login').hide();
+            });
+    
+            // CHUYỂN SANG ĐĂNG KÝ
+            $('#showRegister').click(function (e) {
+                e.preventDefault();
+                $('#formLogin').hide();
+                $('#formRegister').show();
+            });
+    
+            // CHUYỂN VỀ ĐĂNG NHẬP
+            $('#showLogin').click(function (e) {
+                e.preventDefault();
+                $('#formRegister').hide();
+                $('#formLogin').show();
+            });
+    
+            // XỬ LÝ ĐĂNG NHẬP
+            $('#btnLogin').click(function () {
+                let u = $('#username').val().trim();
+                let p = $('#password').val();
+    
+                if (u === "" || p === "") {
+                    alert("Vui lòng nhập tài khoản và mật khẩu!");
+                    return;
+                }
+    
+                if (u === "phong111" && p === "12345") {
+                    alert("Đăng nhập thành công!");
+                    $('#login').hide();
+                } else {
+                    alert("Sai tài khoản hoặc mật khẩu!");
+                }
+            });
+    
+            // XỬ LÝ ĐĂNG KÝ
+            $('#btnRegister').click(function () {
+                let u = $('#regUsername').val().trim();
+                let email = $('#regEmail').val().trim();
+                let phone = $('#regPhone').val().trim();
+                let p = $('#regPassword').val().trim();
+                let confirmP = $('#regConfirmPassword').val().trim();
+    
+                // Chỉ kiểm tra thông tin trống
+                if (u === "" || email === "" || phone === "" ||
+                    p === "" || confirmP === "") {
+                    alert("Vui lòng nhập đầy đủ thông tin!");
+                    return;
+                }
+    
+                alert("Đăng ký thành công!");
+    
+                $('#username').val(u);
+                $('#password').val('');
+    
+                $('#regUsername, #regEmail, #regPhone, #regPassword, #regConfirmPassword').val('');
+    
+                $('#formRegister').hide();
+                $('#formLogin').show();
+            });
+    
+        });
+    </script>
+
+    <div class="container">
+        <div class="row">
+            <div class="banner1"><img src="image/Banner1.jpg" alt="" id="banner">
+                <i class="fa-solid fa-angle-left btn-left" onclick="left()"></i>
+                <i class="fa-solid fa-angle-right btn-right" onclick="right()"></i>
+                <div class="btn" id="showbtn"></div>
+            </div>
+            <div class="banner2">
+                <img src="image/bannerdoc.jpg">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="ROW">
+            <div>
+                <h1>TẤT CẢ SẢN PHẨM</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" id="show"></div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <h1>MÈO</h1>
+        </div>
+        <div class="row" id="Meo"></div>
+    </div>
+
+    <div class="container">
+        <div class="row"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h1>CHÓ</h1>
+        </div>
+        <div class="row" id="Cho"></div>
+    </div>
+
+    <div class="container">
+        <div class="row"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h1>THỎ</h1>
+        </div>
+        <div class="row" id="Tho"></div>
+    </div>
+
+    <div class="container">
+        <div class="row"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h1>HAMSTER</h1>
+        </div>
+        <div class="row" id="Hamster"></div>
+    </div>
+
+
+
+    <script src="js/ds.js"></script>
+
+    <script>
+
+        let arr = ["image/Banner1.jpg", "image/Banner2.jpg", "image/Banner3.jpg"];
+
+        let nut = arr.length;
+        for (let i = 1; i <= nut; i++) {
+            document.getElementById("showbtn").innerHTML +=
+                `<div class="btn1">${i}</div>`
+        }
+
+        let i = 0;
+        function right() {
+            document.getElementById("banner").src = arr[i];
+            i++;
+            if (i == arr.length) {
+                i = 0;
+            }
+        }
+
+
+        function left() {
+            document.getElementById("banner").src = arr[i];
+            i--;
+            if (i < 0) {
+                i = arr.length - 1;
+            }
+        }
+
+        setInterval(left, 3000);
+    </script>
+
+
+    <script>
+        for (let i = 0; i < dm.length; i++) {
+            document.getElementById("danhmuc").innerHTML +=
+                `<li><a href="">${danhmuc[i]}</a></li>`
+
+        }
+    </script>
+
+    <script>
+        function detail(i) {
+            window.location.href = `detail.html?id=${i}` // chuyển sang trang detail.html
+        }
+    </script>
+
+    <script>
+        for (let i = 0; i < ds.length; i++) {
+            document.getElementById("show").innerHTML +=
+                `
+            <div class="col3 m3">
+                <img src="image/${ds[i].hinh}" alt="">
+                <h3>${ds[i].ten} </h3>
+                    <p>${ds[i].gia}</p>
+                    <p>${ds[i].mota}</p>
+                    <button onclick='detail(${ds[i].id})'  value=${ds[i].id}>Chi Tiết</button>
+            </div>
+            `
+        }
+
+    </script>
+
+    <script>
+
+        let Meo = ds.filter(item => item.loai == "Meo");
+        for (let i = 0; i < Meo.length; i++) {
+            document.getElementById("Meo").innerHTML +=
+                `
+            <div class="col3 m3">
+                <img src="image/${Meo[i].hinh}" alt="">
+                <h3>${Meo[i].ten} </h3>
+                    <p>${Meo[i].gia}</p>
+                    <p>${Meo[i].mota}</p>
+                    <Button>Mua Ngay</Button>
+            </div>
+            `
+        }
+
+        let Cho = ds.filter(item => item.loai == "Cho");
+        for (let i = 0; i < Cho.length; i++) {
+            document.getElementById("Cho").innerHTML +=
+                `
+            <div class="col3 m3">
+                <img src="image/${Cho[i].hinh}" alt="">
+                <h3>${Cho[i].ten} </h3>
+                    <p>${Cho[i].gia}</p>
+                    <p>${Cho[i].mota}</p>
+                    <Button>Mua Ngay</Button>
+            </div>
+            `
+        }
+
+        let Tho = ds.filter(item => item.loai == "Tho");
+        for (let i = 0; i < Tho.length; i++) {
+            document.getElementById("Tho").innerHTML +=
+                `
+            <div class="col3 m3">
+                <img src="image/${Tho[i].hinh}" alt="">
+                <h3>${Tho[i].ten} </h3>
+                    <p>${Tho[i].gia}</p>
+                    <p>${Tho[i].mota}</p>
+                    <Button>Mua Ngay</Button>
+            </div>
+        `
+        }
+
+        let Hamster = ds.filter(item => item.loai == "Hamster");
+        for (let i = 0; i < Hamster.length; i++) {
+            document.getElementById("Hamster").innerHTML +=
+                `
+            <div class="col3 m3">
+                <img src="image/${Hamster[i].hinh}" alt="">
+                <h3>${Hamster[i].ten} </h3>
+                    <p>${Hamster[i].gia}</p>
+                    <p>${Hamster[i].mota}</p>
+                    <Button>Mua Ngay</Button>
+            </div>
+        `
+        }
+    </script>
+
+    
+
+
+
+
+</body>
+
+<body>
+    <footer class="footer">
+        <div class="footer-container">
+    
+            <div class="footer-item">
+                <h3>THÚ CƯNG YÊU THƯƠNG</h3>
+                <p>Địa chỉ tin cậy dành cho những người yêu thú cưng.</p>
+                <p>Chúng tôi luôn đồng hành cùng bạn và thú cưng.</p>
+            </div>
+    
+            <div class="footer-item">
+                <h3>LIÊN KẾT NHANH</h3>
+                <a href="index.html">Trang chủ</a>
+                <a href="cart.html">Giỏ hàng</a>
+                <a href="#">Thú cưng</a>
+                <a href="#">Liên hệ</a>
+            </div>
+    
+            <div class="footer-item">
+                <h3>LIÊN HỆ</h3>
+                <p>Địa chỉ: TP. Hồ Chí Minh</p>
+                <p>Điện thoại: 0123 456 789</p>
+                <p>Email: thucung@example.com</p>
+            </div>
+    
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2026 Thú Cưng Yêu Thương. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
